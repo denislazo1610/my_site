@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from django.db.models import BigAutoField
+from os import getenv
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -26,9 +27,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'g(*6qf6u3#ke8!!ou3876v-i@!)x%o+klc394zr-q$_%%gu(a)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv("IS_PRODUCTION", True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    getenv("APP_HOST")
+]
 
 
 # Application definition
@@ -123,6 +126,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATIC_ROOT = BASE_DIR + "/staticfiles"
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
